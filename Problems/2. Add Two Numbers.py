@@ -27,14 +27,19 @@ class Solution:
             l = l.next
             
     def listNodeToDigits(self, l: ListNode) -> int:
-        sum = 0
-        for idx, num in enumerate(self.readDigits(l)): sum += num * (10**idx)
-        return sum
+        val = 0
+        for idx, num in enumerate(self.readDigits(l)): val += num * (10**idx)
+        return val
+
+    def printListNode(self, l: ListNode):
+        ans = []
+        for num in self.readDigits(l): ans.append(num)
+        print(ans)
 
     def digitsToListNode(self, num: int) -> ListNode:
         if num >= 10:
             d = num % 10
-            num = int(num/10)
+            num = num//10
             l = ListNode(d)
             l.next = self.digitsToListNode(num)
             return l
@@ -48,10 +53,10 @@ class Solution:
 
         val1 = self.listNodeToDigits(l1) # Complexity: O(n), Space: O(1)
         val2 = self.listNodeToDigits(l2) # Complexity: O(m), Space: O(1)
-        sum = val1 + val2
+        ans = val1 + val2
         
         # Complexity: O(max(n, m)), Space: O(max(n, m) + 1)
-        return self.digitsToListNode(sum) 
+        return self.digitsToListNode(ans) 
 
 def test_case(x, y):
     a = Solution().digitsToListNode(x)
@@ -61,11 +66,24 @@ def test_case(x, y):
 
     ans = Solution().listNodeToDigits(c)
     print(ans)
+
     assert ans == (x + y)
 
 if __name__ == "__main__":
-    test_case(345, 12)
-    test_case(0, 12)
-    test_case(12345678, 55)
-    test_case(999, 999)
-    test_case(0, 999)
+    # test_case(345, 12)
+    # test_case(0, 12)
+    # test_case(12345678, 55)
+    # test_case(999, 999)
+    # test_case(0, 999)
+
+    a_int1 = 100000000000000001
+    a_int2 = 1000000000000000001
+    b_int = 465
+
+    test_case(a_int1, b_int)
+    test_case(a_int2, b_int)
+
+"""
+Runtime: 84 ms, faster than 76.21% of Python3 online submissions for Add Two Numbers.
+Memory Usage: 13.3 MB, less than 5.21% of Python3 online submissions for Add Two Numbers.
+"""

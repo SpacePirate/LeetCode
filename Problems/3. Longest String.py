@@ -41,12 +41,14 @@ class Solution:
 
     #     return max_str
         
+    # Complexity: O(n), Space: O(1)
     def lengthOfLongestSubstring(self, s: str) -> int:
         len_str = len(s)
         print(len_str)
         char_dict = {}
         max_str = 0
         last_match = -1
+        # Python dict Amortized Worst Case O(n)
         for idx, char in enumerate(s):
             # Check dictionary for this char
             if char in char_dict and last_match <= char_dict[char]:

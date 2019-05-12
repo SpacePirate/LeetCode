@@ -26,12 +26,14 @@ from typing import List
 class Solution:
 
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+               
         len1 = len(nums1)
         len2 = len(nums2)
         len_max = len1 + len2
         assert not (len1 == 0 and len2 == 0)        
         mid_max = len_max//2
         
+
         for 
         
         # # Even list

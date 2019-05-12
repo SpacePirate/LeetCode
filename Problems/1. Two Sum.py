@@ -14,10 +14,9 @@ Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 """
 from typing import List
+
 class Solution:
-    
-    # Time: O(n^2)
-    # Space: O(1)
+    # Time: O(n^2), Space: O(1)
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         for idx, val in enumerate(nums):
             diff = target - val

@@ -20,6 +20,19 @@ class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         for idx, val in enumerate(nums):
             diff = target - val
-            if diff in nums:
-                pair_idx = nums.index(diff)
+            future_nums = nums[idx+1:]
+            if diff in future_nums:
+                pair_idx = future_nums.index(diff) + idx + 1
                 return [idx, pair_idx]
+
+def test_case(x: List[int], y: int):
+    ans = Solution().twoSum(x, y)
+    print(ans)
+
+if __name__ == "__main__":
+    test_case([3,2,4], 6)
+
+"""
+Runtime: 840 ms, faster than 35.07% of Python3 online submissions for Two Sum.
+Memory Usage: 13.7 MB, less than 36.61% of Python3 online submissions for Two Sum.
+"""

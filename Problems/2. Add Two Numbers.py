@@ -43,12 +43,15 @@ class Solution:
             return l
 
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        
-        val1 = self.listNodeToDigits(l1)
-        val2 = self.listNodeToDigits(l2)
+        # l1 - ListNode with length n
+        # l2 - ListNode with length m
+
+        val1 = self.listNodeToDigits(l1) # Complexity: O(n), Space: O(1)
+        val2 = self.listNodeToDigits(l2) # Complexity: O(m), Space: O(1)
         sum = val1 + val2
         
-        return self.digitsToListNode(sum)
+        # Complexity: O(max(n, m)), Space: O(max(n, m) + 1)
+        return self.digitsToListNode(sum) 
 
 def test_case(x, y):
     a = Solution().digitsToListNode(x)
@@ -65,3 +68,4 @@ if __name__ == "__main__":
     test_case(0, 12)
     test_case(12345678, 55)
     test_case(999, 999)
+    test_case(0, 999)

@@ -22,30 +22,46 @@ class ListNode:
 
 class Solution:
     def readDigits(self, l: ListNode) -> int:
-        while True:
-            yield l.val if l != None else 0
-            try: l = l.next
-            except AttributeError: l = ListNode(0)
+        while l != None: 
+            yield l.val
+            l = l.next
+            
+    def listNodeToDigits(self, l: ListNode) -> int:
+        sum = 0
+        for idx, num in enumerate(self.readDigits(l)): sum += num * (10**idx)
+        return sum
 
     def digitsToListNode(self, num: int) -> ListNode:
-        l_out = None
-        l_prev = None
-        while num > 0:
+        if num >= 10:
             d = num % 10
-            num = num/10
-            if l_prev == None:
-                l_out = ListNode(d)
-                l_prev = l_out
-            else:
-                l_prev.next = ListNode(d)
+            num = int(num/10)
+            l = ListNode(d)
+            l.next = self.digitsToListNode(num)
+            return l
+        else:
+            l = ListNode(num)
+            return l
 
-        return l_out
-        
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        sum = 0
-        for idx, (val1, val2) in enumerate(zip(self.readDigits(l1), self.readDigits(l2))):
-            if (val1 + val2 == 0): break
-            sum += (val1 + val2) * (10^idx)
+        
+        val1 = self.listNodeToDigits(l1)
+        val2 = self.listNodeToDigits(l2)
+        sum = val1 + val2
         
         return self.digitsToListNode(sum)
 
+def test_case(x, y):
+    a = Solution().digitsToListNode(x)
+    b = Solution().digitsToListNode(y)
+
+    c = Solution().addTwoNumbers(a, b)
+
+    ans = Solution().listNodeToDigits(c)
+    print(ans)
+    assert ans == (x + y)
+
+if __name__ == "__main__":
+    test_case(345, 12)
+    test_case(0, 12)
+    test_case(12345678, 55)
+    test_case(999, 999)

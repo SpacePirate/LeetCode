@@ -58,12 +58,11 @@ class Solution:
         while n:
             result = result*10 + n%10
             n = n//10
-
-        if result > valid_range[1] or result < valid_range[0]: result = 0
-
+        # Overflow
+        if result > valid_range[1] or result < valid_range[0]: return 0
+        # Return with correct sign
         if x < 0: return -1* result
         else:     return     result
-
 
 @my_timer
 def test_case(x: int):

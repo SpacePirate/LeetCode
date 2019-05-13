@@ -1,5 +1,5 @@
 """
-3. Longest Substring Without Repeating Characters   
+3. Longest Substring Without Repeating Characters (Medium, 28.3%)
 
 Given a string, find the length of the longest substring without repeating characters.
 

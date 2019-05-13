@@ -1,5 +1,5 @@
 """
-2. Add Two Numbers
+2. Add Two Numbers (Medium, 31.1%)
 
 You are given two non-empty linked lists representing two non-negative integers. 
 The digits are stored in reverse order and each of their nodes contain a single digit. 

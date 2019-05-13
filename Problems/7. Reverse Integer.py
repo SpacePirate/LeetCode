@@ -41,6 +41,10 @@ def my_timer(func):
 
 class Solution:
     def reverse_brute(self, x: int) -> int:
+        """
+        Runtime: 56 ms
+        Memory Usage: 13.3 MB
+        """
         valid_range = [-2**31, 2**31-1]
         num = list(str(abs(x)))
         num.reverse()
@@ -51,7 +55,32 @@ class Solution:
         if x < 0: return -1* num
         else:     return     num
 
+    def modnum(self, x: int) -> int:
+        while(x):
+            yield x%10
+            x = x//10 
+
+    def reverse_generator(self, x: int) -> int:
+        """
+        Runtime: 40 ms, faster than 97.54% of Python3 online submissions for Reverse Integer.
+        Memory Usage: 13.2 MB, less than 5.71% of Python3 online submissions for Reverse Integer.
+        """
+        valid_range = [-2**31, 2**31-1]
+        result = 0
+        n = abs(x)
+        for m in self.modnum(n): result = result*10 + m
+        
+        # Overflow
+        if result > valid_range[1] or result < valid_range[0]: return 0
+        # Return with correct sign
+        if x < 0: return -1* result
+        else:     return     result
+
     def reverse(self, x: int) -> int:
+        """
+        Runtime: 32 ms, faster than 99.71% of Python3 online submissions for Reverse Integer.
+        Memory Usage: 13.2 MB, less than 5.71% of Python3 online submissions for Reverse Integer.
+        """
         valid_range = [-2**31, 2**31-1]
         result = 0
         n = abs(x)

@@ -72,6 +72,8 @@ class Solution:
     Runtime: 76 ms, faster than 66.71% of Python3 online submissions for Roman to Integer.
     Memory Usage: 13.3 MB, less than 54.29% of Python3 online submissions for Roman to Integer.
     """
+    # Complexity: O(n)
+    # Space: O(n)
     def romanToInt(self, s: str) -> int:
         n = len(s)
         c = n-1
@@ -94,6 +96,8 @@ class Solution:
     Runtime: 52 ms, faster than 99.48% of Python3 online submissions for Roman to Integer.
     Memory Usage: 13.3 MB, less than 62.60% of Python3 online submissions for Roman to Integer.
     """
+    # Complexity: O(1)
+    # Space: O(n)
     def romanToInt2(self, s: str) -> int:
         rom_dict = { "I": 1,
                      "V": 5,

@@ -27,6 +27,7 @@ class Solution:
 @my_timer
 def test_case(*args, **kwargs):
     ans = Solution().template(*args, **kwargs)
+    print("Answer is {0}".format(ans))
     return ans
     
 if __name__ == "__main__":

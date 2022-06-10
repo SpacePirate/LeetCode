@@ -49,25 +49,52 @@ class Solution:
         return times
 
     def readBinaryWatch(self, num: int) -> List[str]:
-        assert (num > 0 and num <= 10) # What does n = 0 mean?
-        max_num = 2**10 - 1
-        ones = 2**num - 1 # Get trailing ones
-        high = int(round(math.log(num, 2))) # Get index of highest one bit position
+        max_num = 10
+        if num < 0 or num > max_num: return [] # Dismiss invalid inputs
+        if num == 0: return ["0:00"]
+        
+        # Get all combinations of this binary string
+        bin_num = '1' * num + '0' * (max_num-num)
 
-        # All LEDs are on
-        if ones == max_num:
-            
-        while (ones < max_num and high > 0):
-            
+        indices = list(range(max_num))
+        ans = []
+        for i in reversed(range(max_num)):
+            for j in range(i+1, max_num): 
+                indices[j] = indices[j-1] + 1
+                comb = "".join(bin_num[i] for i in indices)
+                ans.append(comb)
 
-            high -= 1
-            
+        # Convert each string to time format
+        return ans
 
-        return num
-
+    # From Python documentation
+    def combinations(self, iterable, r):
+        # combinations('ABCD', 2) --> AB AC AD BC BD CD
+        # combinations(range(4), 3) --> 012 013 023 123
+        pool = tuple(iterable)
+        n = len(pool)
+        if r > n:
+            return
+        indices = list(range(r))
+        yield tuple(pool[i] for i in indices)
+        while True:
+            for i in reversed(range(r)):
+                if indices[i] != i + n - r:
+                    break
+            else:
+                return
+            indices[i] += 1
+            for j in range(i+1, r):
+                indices[j] = indices[j-1] + 1
+            yield tuple(pool[i] for i in indices)
 
 @my_timer
 def test_case(*args, **kwargs):
     ans = Solution().readBinaryWatch(*args, **kwargs)
-    print("Input: {0},{1}".format(*args, **kwargs))
+    print("Input: {0}".format(*args))
     print("Output: {0}".format(ans))
+
+if __name__ == "__main__":
+    test_case(0)
+    test_case(1)
+    test_case(2)

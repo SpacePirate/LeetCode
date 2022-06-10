@@ -1,0 +1,34 @@
+There is example code equivalent to itertools.combinations in the documentation. 
+https://docs.python.org/3/library/itertools.html#itertools.combinations
+The real implementation is in C, so this is just an example of how you could implement that algorithm in Python.
+
+Note the assumption that ordering is based on the ordering of the items passed in, so there is no internal sorting. 
+It also will accept repeats in items without excluding those, so [1, 1, 2], 2 would give (1, 1), (1, 2), (1, 2). 
+If you want to get rid of such repeats then look at using set or even frozenset if you think you need a set of sets.
+https://docs.python.org/3/library/stdtypes.html#frozenset
+
+In short it works out each set of valid indexes you can pick from your items, then returns those in order.
+
+In long;
+
+0) Freeze the input items object into a pool tuple to insure you can index into it. This lets the algorithm accept any iterable.
+
+Create a list the size of each combination you want that will be used to pick each in turn, initialising it from a range. 
+So if your pick length is 3 you would start with an indices list of [0, 1, 2]. 
+This indices list will always be a set of valid indexes you can pick from the pool tuple, returning a valid combination each time you do so.
+
+2. If the length of indices is longer than the length of pool, return early as there are no possible combinations.
+
+3. Otherwise you yield you first combination, indexing pool by the values in indices.
+
+4. Next we enter a while True: loop. This will run until we hit either a break or return statement. In this case it will be a return (there is a break but that's contained in an inner loop). We will need to examine that return to see what our exit condition is.
+
+5. The first inner loop we come to does most of the interesting work of picking the valid values of indices and testing if we have met the exit condition when no other valid sets are possible. Effectively it goes through the indices values from right to left to see if any of the values can be incremented. The test is whether their current value is not equal to the maximum possible value for that position. If any are not yet at their possible maximum it breaks out of the loop with i at the indices index that can be incremented.
+
+6. Here we hit the exit condition. If the for loop concludes without hitting a break statement (eg, all indices values are at their maximums) it will execute the else block of the for loop and the function will return. That is, if we can't increment any of values in indices according to the condition in the for loop, the function ends without yielding further values.
+
+7. Otherwise we continue. The value of indices at i is incremented by 1.
+
+8. Next any values to the right of the value we just incremented are modified to shift them into order, at the value to their left plus one. That is, say we have indices [1, 2, 6, 7] taken from the pool (1..7). The next possible increase is to change the 2 to 3, but to keep things ordered we also have to shift the values to it's right. So the third value will become 3 + 1, and the same for the rest, so we get [1, 3, 4, 5].
+
+9. Finally we have another yield, identical to the first one, spitting out the next valid combination.
